@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import messagebox
+from tkinter import messagebox, filedialog
 from gtts import gTTS
 from pkg_resources import resource_filename
 
@@ -10,8 +10,13 @@ def btn_clicked():
     idioma = 'pt'
     texto = entry0.get()
     audio = gTTS(text=texto, lang=idioma,tld='com.br')
-    audio.save('audio.mp3')
-    messagebox.showinfo(message="Áudio gerado com sucesso!")
+    
+    def salvar():
+        filename = filedialog.asksaveasfilename(title="Salvar Arquivo", filetypes=[("Áudio MP3", ".mp3")])
+        audio.save(filename+".mp3")
+        messagebox.showinfo(message="Áudio gerado com sucesso!")
+        
+    salvar()
     limpa_tela()
 
 window = Tk()
